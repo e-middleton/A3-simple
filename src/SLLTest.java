@@ -169,33 +169,33 @@ public class SLLTest {
         assertTrue("removeLast -> empty" + s, s.equals(""));
     }
 
-    // @Test
-    // public void test_size() {
-    //     SLL<String> list = new SLL<String>();
+    @Test
+    public void test_size() {
+        SLL<String> list = new SLL<String>();
 
-    //     Assert.assertTrue("size of empty", 0 == list.size());
-    //     list = makeSLL(a);
-    //     Assert.assertTrue("size of A", 1 == list.size());
-    //     list = makeSLL(ba);
-    //     Assert.assertTrue("size of BA", 2 == list.size());
-    //     list = makeSLL(cba);
-    //     Assert.assertTrue("size of CBA", 3 == list.size());
-    // }
+        assertTrue("size of empty", 0 == list.size());
+        list = makeSLL(a);
+        assertTrue("size of A", 1 == list.size());
+        list = makeSLL(ba);
+        assertTrue("size of BA", 2 == list.size());
+        list = makeSLL(cba);
+        assertTrue("size of CBA", 3 == list.size());
+    }
 
-    // @Test
-    // public void test_addAfter() {
-    //     SLL<String> list = makeSLL(a);
+    @Test
+    public void test_addAfter() {
+        SLL<String> list = makeSLL(a);
 
-    //     list.addAfter(list.getHead(), "B");
-    //     String s = verifySLL(list, ab);
-    //     Assert.assertTrue("A.addAfter(A,B)" + s, s.equals(""));
-    //     list.addAfter(list.getTail(), "C");
-    //     s = verifySLL(list, abc);
-    //     Assert.assertTrue("AB.addAfter(B,C)" + s, s.equals(""));
-    //     list.addAfter(list.getHead().getNext(), "D");
-    //     s = verifySLL(list, abdc);
-    //     Assert.assertTrue("ABC.addAfter(B,D)" + s, s.equals(""));
-    // }
+        list.addAfter(list.getHead(), "B");
+        String s = verifySLL(list, ab);
+        assertTrue("A.addAfter(A,B)" + s, s.equals(""));
+        list.addAfter(list.getTail(), "C");
+        s = verifySLL(list, abc);
+        assertTrue("AB.addAfter(B,C)" + s, s.equals(""));
+        list.addAfter(list.getHead().getNext(), "D");
+        s = verifySLL(list, abdc);
+        assertTrue("ABC.addAfter(B,D)" + s, s.equals(""));
+    }
 
     @Test
     public void test_removeAfter() {
@@ -222,57 +222,57 @@ public class SLLTest {
     //     Assert.assertTrue("copy empty" + s, s.equals(""));
     // }
 
-    // @Test
-    // public void test_subseqByCopy() {
-    //     SLL<String> list = makeSLL(bac);
-    //     SLL<String> list2 = list.subseqByCopy(list.getHead(), 2);
+    @Test
+    public void test_subseqByCopy() {
+        SLL<String> list = makeSLL(bac);
+        SLL<String> list2 = list.subseqByCopy(list.getHead(), 2);
 
-    //     String s = verifySLL(list2, ba);
-    //     Assert.assertTrue("BAC.subseqByCopy(B,2) -> BA" + s, s.equals(""));
-    //     s = verifySLL(list, bac);
-    //     Assert.assertTrue("BAC.subseqByCopy(B,2): BAC same" + s, s.equals(""));
-    //     Assert.assertTrue("Not shallow BA", list.getHead().getNext() != list2.getTail());
-    //     list2 = list.subseqByCopy(list.getHead().getNext(), 2);
-    //     s = verifySLL(list2, ac);
-    //     Assert.assertTrue("BAC.subseqByCopy(A,2) -> AC" + s, s.equals(""));
-    //     s = verifySLL(list, bac);
-    //     Assert.assertTrue("BAC.subseqByCopy(A,2): BAC same" + s, s.equals(""));
-    //     Assert.assertTrue("Not shallow AC", list.getTail() != list2.getTail());
-    // }
+        String s = verifySLL(list2, ba);
+        assertTrue("BAC.subseqByCopy(B,2) -> BA" + s, s.equals(""));
+        s = verifySLL(list, bac);
+        assertTrue("BAC.subseqByCopy(B,2): BAC same" + s, s.equals(""));
+        assertTrue("Not shallow BA", list.getHead().getNext() != list2.getTail());
+        list2 = list.subseqByCopy(list.getHead().getNext(), 2);
+        s = verifySLL(list2, ac);
+        assertTrue("BAC.subseqByCopy(A,2) -> AC" + s, s.equals(""));
+        s = verifySLL(list, bac);
+        assertTrue("BAC.subseqByCopy(A,2): BAC same" + s, s.equals(""));
+        assertTrue("Not shallow AC", list.getTail() != list2.getTail());
+    }
 
-    // @Test
-    // public void test_spliceByCopy() {
-    //     SLL<String> list = makeSLL(dac);
-    //     SLL<String> list2 = makeSLL(eb);
-    //     list.spliceByCopy(list2, list.getHead());
-    //     String s = verifySLL(list, debac);
-    //     Assert.assertTrue("DAC.spliceByCopy(EB,D) -> DEBAC" + s, s.equals(""));
-    //     s = verifySLL(list2, eb);
-    //     Assert.assertTrue("DAC.spliceByCopy(EB,D): EB same" + s, s.equals(""));
-    //     Assert.assertTrue("Not shallow EB", list.getHead().getNext().getNext() != list2.getTail());
-    //     list = makeSLL(debac);
-    //     list2 = makeSLL(fg);
-    //     list.spliceByCopy(list2, list.getTail());
-    //     s = verifySLL(list, debacfg);
-    //     Assert.assertTrue("DEBAC.spliceByCopy(FG,C) -> DEBACFG" + s, s.equals(""));
-    //     s = verifySLL(list2, fg);
-    //     Assert.assertTrue("DEBAC.spliceByCopy(FG,C): FG same" + s, s.equals(""));
-    //     Assert.assertTrue("Not shallow FG", list.getTail() != list2.getTail());
-    //     list = makeSLL(debacfg);
-    //     list2 = makeSLL(hi);
-    //     list.spliceByCopy(list2, null);
-    //     s = verifySLL(list, hidebacfg);
-    //     Assert.assertTrue("DEBACFG.spliceByCopy(HI,null) -> HIDEBACFG" + s, s.equals(""));
-    //     s = verifySLL(list2, hi);
-    //     Assert.assertTrue("DEBACFG.spliceByCopy(HI,null): HI same" + s, s.equals(""));
-    //     Assert.assertTrue("Not shallow HI", list.getHead().getNext() != list2.getTail());
-    //     list = makeSLL(abc);
-    //     list2 = makeSLL(empty);
-    //     list.spliceByCopy(list2, list.getHead().getNext());
-    //     s = verifySLL(list, abc);
-    //     Assert.assertTrue("ABC.spliceByCopy(empty,B) -> ABC" + s, s.equals(""));
+    @Test
+    public void test_spliceByCopy() {
+        SLL<String> list = makeSLL(dac);
+        SLL<String> list2 = makeSLL(eb);
+        list.spliceByCopy(list2, list.getHead());
+        String s = verifySLL(list, debac);
+        assertTrue("DAC.spliceByCopy(EB,D) -> DEBAC" + s, s.equals(""));
+        s = verifySLL(list2, eb);
+        assertTrue("DAC.spliceByCopy(EB,D): EB same" + s, s.equals(""));
+        assertTrue("Not shallow EB", list.getHead().getNext().getNext() != list2.getTail());
+        list = makeSLL(debac);
+        list2 = makeSLL(fg);
+        list.spliceByCopy(list2, list.getTail());
+        s = verifySLL(list, debacfg);
+        assertTrue("DEBAC.spliceByCopy(FG,C) -> DEBACFG" + s, s.equals(""));
+        s = verifySLL(list2, fg);
+        assertTrue("DEBAC.spliceByCopy(FG,C): FG same" + s, s.equals(""));
+        assertTrue("Not shallow FG", list.getTail() != list2.getTail());
+        list = makeSLL(debacfg);
+        list2 = makeSLL(hi);
+        list.spliceByCopy(list2, null);
+        s = verifySLL(list, hidebacfg);
+        assertTrue("DEBACFG.spliceByCopy(HI,null) -> HIDEBACFG" + s, s.equals(""));
+        s = verifySLL(list2, hi);
+        assertTrue("DEBACFG.spliceByCopy(HI,null): HI same" + s, s.equals(""));
+        assertTrue("Not shallow HI", list.getHead().getNext() != list2.getTail());
+        list = makeSLL(abc);
+        list2 = makeSLL(empty);
+        list.spliceByCopy(list2, list.getHead().getNext());
+        s = verifySLL(list, abc);
+        assertTrue("ABC.spliceByCopy(empty,B) -> ABC" + s, s.equals(""));
 
-    // }
+    }
 
     // @Test
     // public void test_subseqByTransfer() {
@@ -330,34 +330,34 @@ public class SLLTest {
     //     Assert.assertTrue("DEBACFG.spliceByTransfer(HI,null) empties HI" + s, s.equals(""));
     // }
 
-    // @Test
-    // public void test_MEE1() {
+    @Test
+    public void test_MEE1() {
 
-    //     SLL<String> list = new SLL<>();
+        SLL<String> list = new SLL<>();
 
-    //     Assert.assertThrows("removeFirst from empty list",
-    //             MissingElementException.class,
-    //             list::removeFirst);
-    // }
+        assertThrows("removeFirst from empty list",
+                MissingElementException.class,
+                list::removeFirst);
+    }
 
-    // @Test
-    // public void test_MEE2() {
+    @Test
+    public void test_MEE2() {
 
-    //     SLL<String> list = new SLL<>();
-    //     Assert.assertThrows("removeLast from empty list",
-    //             MissingElementException.class,
-    //             list::removeLast);
-    // }
+        SLL<String> list = new SLL<>();
+        assertThrows("removeLast from empty list",
+                MissingElementException.class,
+                list::removeLast);
+    }
 
-    // @Test
-    // public void test_MEE3() {
-    //     SLL<String> list = new SLL<String>();
-    //     Assert.assertThrows("removeAfter from empty list",
-    //             MissingElementException.class,
-    //             () -> {
-    //                 list.removeAfter(null);
-    //             });
-    // }
+    @Test
+    public void test_MEE3() {
+        SLL<String> list = new SLL<String>();
+        assertThrows("removeAfter from empty list",
+                MissingElementException.class,
+                () -> {
+                    list.removeAfter(null);
+                });
+    }
 
     // @Test
     // public void test_SIE1() {

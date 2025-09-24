@@ -5,7 +5,7 @@
  * @version Fall 2025
  */
 
- public class SLL<T> implements Phase1SLL<T> { // they both need <T> so that it's clear they're the same generic type
+ public class SLL<T> implements Phase1SLL<T>, Phase2SLL<T>{ // they both need <T> so that it's clear they're the same generic type
     private NodeSL<T> head;
     private NodeSL<T> tail;
 
@@ -110,7 +110,8 @@
 
 
   /**
-   * Removes the given item from the head of the list
+   * Removes the given item from the head of the list.
+   * Throws a MissingElementException if it is an empty list.
    * @return the item removed
    */
   public T removeFirst(){ 
@@ -133,11 +134,11 @@
    * @return the item removed from the end of the list
    */
   public T removeLast(){
-    if(this.head == null){ // if the list is empty
+    if (this.head == null){ // if the list is empty
         throw new MissingElementException();
     }
 
-    if(this.head.getNext() == null){ // one element long list
+    if (this.head.getNext() == null){ // one element long list
         T item = this.head.getData();
         this.head = null; // removing the one item makes this an empty list
         this.tail = null;
@@ -157,32 +158,85 @@
     this.tail = node; // update the tail to be the node before the old tail
     return item;
   }
-
+  
   /**
-   * Removes the node after the given position
-   * @param here marks the position to remove after
-   * @return item removed
+   *  Removes the node after the given position. Throws a MissingElementException if 
+   * you try to remove an element after the tail, or from an empty list.
+   *  @param here marks position to remove after
+   *  @return item removed
    */
   public T removeAfter(NodeSL<T> here){
     if(here == null) {                  // if the node is null, it means remove the head
         T item = removeFirst();
         return item;
-
     } else {
         if(here.getNext()==null){        // cannot remove after the tail of the list or from an empty list
             throw new MissingElementException();
         }
-
+        
         T item = here.getNext().getData(); // save the data of the item being deleted
         here.setNext(here.getNext().getNext()); // pass over the item being deleted, jvm garbage collector takes care of it
-
         if(here.getNext() == null){ // if this is now the tail, update the tail pointer in the linkedList
             this.tail = here;
         }
-        
         return item; 
     }
   }
+
+  /**
+   * Returns a count of the number of elements in the list
+   * @return current number of nodes
+   */
+  public int size(){
+    int size = 0;
+    if(this.head == null){ // empty list
+        return size;
+    } else {
+        for (NodeSL<T> node = this.head; node.getNext() != null; node = node.getNext()){
+            size += 1;
+        }
+        size += 1; // account for the tail
+    }
+    return size;
+  }
+
+    /** 
+   *  Makes a copy of elements from the original list
+   *  @param here  starting point of copy
+   *  @param n  number of items to copy
+   *  @return the copied list
+   */
+  public SLL<T> subseqByCopy(NodeSL<T> here, int n){
+    SLL<T> subsequence = new SLL<T>();
+
+    for (int i = 0; i < n; i++){
+        subsequence.addLast(here.getData());
+        here = here.getNext();
+    }
+    return subsequence;
+  }
+
+    /**
+   *  Places copy of the provided list into this after the specified node.
+   *  @param list  the list to splice in a copy of
+   *  @param afterHere  marks the position in this where the new list should go
+   */
+  public void spliceByCopy(SLL<T> list, NodeSL<T> afterHere){
+    SLL<T> copyList = list.subseqByCopy(list.getHead(), list.size());
+
+    if(copyList.isEmpty()){
+        return; // nothing to do for splicing in an empty list
+    }
+
+    if(afterHere == null){ // insert at beginning, also takes care of case of empty list
+        copyList.getTail().setNext(this.head);
+        this.head = copyList.getHead();
+    } else {
+        copyList.getTail().setNext(afterHere.getNext());
+        afterHere.setNext(copyList.getHead()); // modify links
+    }
+  }
+
 
   
   public static void main(String[] args) {
@@ -191,7 +245,11 @@
     test.addFirst("B");
     test.addFirst("A");
     System.out.println(test);
-    test.removeLast();
+    SLL<String> test2 = new SLL<String>();
+    test2.addLast("D");
+    test2.addLast("E");
+    test2.addLast("F");
+    test.spliceByCopy(test2, null);
     System.out.println(test);
   }
 }
