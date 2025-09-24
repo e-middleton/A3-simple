@@ -164,12 +164,27 @@
    * @return item removed
    */
   public T removeAfter(NodeSL<T> here){
+    if(here == null) {              // if the node is null, it means remove the head
+        T item = removeFirst();
+        return item;
 
-    if(here.getNext()==null){               // cannot remove after the tail of the list
+    } else {
+        if(here.getNext()==null){               // cannot remove after the tail of the list
         throw new MissingElementException();
     }
 
-    return this.head.getData(); // STUB TODO FIX THIS
+    T item = here.getNext().getData();
+
+    here.setNext(here.getNext().getNext());
+
+
+    if(here.getNext() == null){ // if this is now the
+        this.tail = here;
+    }
+
+    return item; // STUB TODO FIX THIS
+    }
+
   }
 
   

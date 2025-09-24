@@ -197,20 +197,20 @@ public class SLLTest {
     //     Assert.assertTrue("ABC.addAfter(B,D)" + s, s.equals(""));
     // }
 
-    // @Test
-    // public void test_removeAfter() {
-    //     SLL<String> list = makeSLL(abc);
+    @Test
+    public void test_removeAfter() {
+        SLL<String> list = makeSLL(abc);
 
-    //     Assert.assertTrue("ABC after B", list.removeAfter(list.getHead().getNext()).equals("C"));
-    //     String s = verifySLL(list, ab);
-    //     Assert.assertTrue("ABC removeAfter B -> AB" + s, s.equals(""));
-    //     Assert.assertTrue("AB after A", list.removeAfter(list.getHead()).equals("B"));
-    //     verifySLL(list, a);
-    //     Assert.assertTrue("AB removeAfter A -> A" + s, s.equals(""));
-    //     Assert.assertTrue("A after null", list.removeAfter(null).equals("A"));
-    //     s = verifySLL(list, empty);
-    //     Assert.assertTrue("A removeAfter null -> empty" + s, s.equals(""));
-    // }
+        assertTrue("ABC after B", list.removeAfter(list.getHead().getNext()).equals("C"));
+        String s = verifySLL(list, ab);
+        assertTrue("ABC removeAfter B -> AB" + s, s.equals(""));
+        assertTrue("AB after A", list.removeAfter(list.getHead()).equals("B"));
+        verifySLL(list, a);
+        assertTrue("AB removeAfter A -> A" + s, s.equals(""));
+        assertTrue("A after null", list.removeAfter(null).equals("A"));
+        s = verifySLL(list, empty);
+        assertTrue("A removeAfter null -> empty" + s, s.equals(""));
+    }
 
     // @Test
     // public void test_copy_constructor() {
