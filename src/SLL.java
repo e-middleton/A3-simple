@@ -164,27 +164,24 @@
    * @return item removed
    */
   public T removeAfter(NodeSL<T> here){
-    if(here == null) {              // if the node is null, it means remove the head
+    if(here == null) {                  // if the node is null, it means remove the head
         T item = removeFirst();
         return item;
 
     } else {
-        if(here.getNext()==null){               // cannot remove after the tail of the list
-        throw new MissingElementException();
+        if(here.getNext()==null){        // cannot remove after the tail of the list or from an empty list
+            throw new MissingElementException();
+        }
+
+        T item = here.getNext().getData(); // save the data of the item being deleted
+        here.setNext(here.getNext().getNext()); // pass over the item being deleted, jvm garbage collector takes care of it
+
+        if(here.getNext() == null){ // if this is now the tail, update the tail pointer in the linkedList
+            this.tail = here;
+        }
+        
+        return item; 
     }
-
-    T item = here.getNext().getData();
-
-    here.setNext(here.getNext().getNext());
-
-
-    if(here.getNext() == null){ // if this is now the
-        this.tail = here;
-    }
-
-    return item; // STUB TODO FIX THIS
-    }
-
   }
 
   
